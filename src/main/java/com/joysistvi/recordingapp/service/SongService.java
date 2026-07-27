@@ -1,42 +1,22 @@
 package com.joysistvi.recordingapp.service;
 
 import com.joysistvi.recordingapp.model.Song;
-import com.joysistvi.recordingapp.repository.SongRepository;
 
 import java.util.List;
 
-public class SongService {
+public interface SongService {
 
-    private final SongRepository songRepo;
+    boolean addSong(Song song);
 
-    // Constructor injection
-    public SongService(SongRepository songRepo) {
-        this.songRepo = songRepo;
-    }
+    List<Song> listSongs();
 
-    public boolean addSong(Song song) {
-        if (song.getTitle() == null || song.getTitle().isEmpty() ) {
-            System.out.println("Song title cannot be empty");
-            return false;
-        }
+    boolean updateSong(int id, String newTitle, String length, String genre);
 
-        return songRepo.createSong(song);
-    }
+    boolean deleteSong(int id);
 
-    public List<Song> listSongs() {
-        return songRepo.getAllSongs();
-    }
+    boolean archiveSong(int id);
 
-//    public boolean updateSong(int id, String newTitle, String length, String genre) {
-//        if (newTitle == null || newTitle.isEmpty()) {
-//            System.out.println("New title cannot be empty.");
-//            return false;
-//        }
-//        return songRepo.updateSongTitle(id, newTitle);
-//    }
+    boolean restoreSong(int id);
 
-    public boolean deleteSong(){
-        return true;
-    }
-
+    List<Song> searchSong(String keyword);
 }

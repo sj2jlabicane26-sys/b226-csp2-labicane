@@ -1,23 +1,28 @@
 package com.joysistvi.recordingapp.view;
 
 import com.joysistvi.recordingapp.controller.SongController;
+import com.joysistvi.recordingapp.model.Song;
 
+import java.util.List;
 import java.util.Scanner;
 
 public class SongView {
 
     private final SongController songController;
-    private final Scanner scanner = new Scanner(System.in);
+    private final Scanner scanner;
 
-    // Constructor injection
+    // Constructor Injection
     public SongView(SongController songController) {
         this.songController = songController;
+        this.scanner = new Scanner(System.in);
     }
 
     public void showMenu() {
+
         int choice;
+
         do {
-            System.out.println("\n--- Song Menu ---");
+            System.out.println("\n========== SONG MENU ==========");
             System.out.println("1. Add Song");
             System.out.println("2. View All Songs");
             System.out.println("3. Update Song");
@@ -27,22 +32,212 @@ public class SongView {
             System.out.println("7. Search Song");
             System.out.println("0. Exit");
             System.out.print("Enter choice: ");
+
             choice = scanner.nextInt();
-            scanner.nextLine(); // consume newline
+            scanner.nextLine();
 
             switch (choice) {
+
                 case 1:
-                    System.out.println("Add Song");
-                    //songController.addSong();
+                    addSong();
                     break;
+
                 case 2:
-                    System.out.println("View All Songs");
-                    songController.listSongs();
+                    viewSongs();
                     break;
+
+                case 3:
+                    updateSong();
+                    break;
+
+                case 4:
+                    deleteSong();
+                    break;
+
+                case 5:
+                    archiveSong();
+                    break;
+
+                case 6:
+                    restoreSong();
+                    break;
+
+                case 7:
+                    searchSong();
+                    break;
+
+                case 0:
+                    System.out.println("Exiting...");
+                    break;
+
                 default:
-                    System.out.println("Invalid choice");
+                    System.out.println("Invalid choice.");
             }
+
         } while (choice != 0);
     }
 
+    // ================= ADD =================
+
+    private void addSong() {
+
+        System.out.print("Title: ");
+        String title = scanner.nextLine();
+
+        System.out.print("Length: ");
+        String length = scanner.nextLine();
+
+        System.out.print("Genre: ");
+        String genre = scanner.nextLine();
+
+        System.out.print("Album ID: ");
+        int albumId = scanner.nextInt();
+        scanner.nextLine();
+
+        boolean success = songController.addSong(title, length, genre, albumId);
+
+        if (success) {
+            System.out.println("Song added successfully!");
+        } else {
+            System.out.println("Failed to add song.");
+        }
+    }
+
+    // ================= VIEW =================
+
+    private void viewSongs() {
+
+        List<Song> songs = songController.listSongs();
+
+        if (songs.isEmpty()) {
+            System.out.println("No songs found.");
+            return;
+        }
+
+        System.out.println("\n------------------------------------------------------------");
+        System.out.printf("%-5s %-20s %-10s %-15s %-20s%n",
+                "ID", "TITLE", "LENGTH", "GENRE", "ALBUM");
+
+        System.out.println("------------------------------------------------------------");
+
+        for (Song song : songs) {
+
+            System.out.printf("%-5d %-20s %-10s %-15s %-20s%n",
+                    song.getId(),
+                    song.getTitle(),
+                    song.getLength(),
+                    song.getGenre(),
+                    song.getAlbumName());
+
+        }
+    }
+
+    // ================= UPDATE =================
+
+    private void updateSong() {
+
+        System.out.print("Song ID: ");
+        int id = scanner.nextInt();
+        scanner.nextLine();
+
+        System.out.print("New Title: ");
+        String title = scanner.nextLine();
+
+        System.out.print("New Length: ");
+        String length = scanner.nextLine();
+
+        System.out.print("New Genre: ");
+        String genre = scanner.nextLine();
+
+        boolean success = songController.updateSong(id, title, length, genre);
+
+        if (success) {
+            System.out.println("Song updated successfully.");
+        } else {
+            System.out.println("Update failed.");
+        }
+    }
+
+    // ================= DELETE =================
+
+    private void deleteSong() {
+
+        System.out.print("Song ID: ");
+        int id = scanner.nextInt();
+        scanner.nextLine();
+
+        boolean success = songController.deleteSong(id);
+
+        if (success) {
+            System.out.println("Song deleted successfully.");
+        } else {
+            System.out.println("Delete failed.");
+        }
+    }
+
+    // ================= ARCHIVE =================
+
+    private void archiveSong() {
+
+        System.out.print("Song ID: ");
+        int id = scanner.nextInt();
+        scanner.nextLine();
+
+        boolean success = songController.archiveSong(id);
+
+        if (success) {
+            System.out.println("Song archived successfully.");
+        } else {
+            System.out.println("Archive failed.");
+        }
+    }
+
+    // ================= RESTORE =================
+
+    private void restoreSong() {
+
+        System.out.print("Song ID: ");
+        int id = scanner.nextInt();
+        scanner.nextLine();
+
+        boolean success = songController.restoreSong(id);
+
+        if (success) {
+            System.out.println("Song restored successfully.");
+        } else {
+            System.out.println("Restore failed.");
+        }
+    }
+
+    // ================= SEARCH =================
+
+    private void searchSong() {
+
+        System.out.print("Enter keyword: ");
+        String keyword = scanner.nextLine();
+
+        List<Song> songs = songController.searchSong(keyword);
+
+        if (songs.isEmpty()) {
+            System.out.println("No matching songs found.");
+            return;
+        }
+
+        System.out.println("\n------------------------------------------------------------");
+        System.out.printf("%-5s %-20s %-10s %-15s %-20s%n",
+                "ID", "TITLE", "LENGTH", "GENRE", "ALBUM");
+
+        System.out.println("------------------------------------------------------------");
+
+        for (Song song : songs) {
+
+            System.out.printf("%-5d %-20s %-10s %-15s %-20s%n",
+                    song.getId(),
+                    song.getTitle(),
+                    song.getLength(),
+                    song.getGenre(),
+                    song.getAlbumName());
+
+        }
+    }
 }
