@@ -11,14 +11,13 @@ public class SongView {
     private final SongController songController;
     private final Scanner scanner;
 
-    // Constructor Injection
+    // Mas maganda kung gagamitin din ang Scanner na galing sa Main
     public SongView(SongController songController) {
         this.songController = songController;
         this.scanner = new Scanner(System.in);
     }
 
     public void showMenu() {
-
         int choice;
 
         do {
@@ -33,54 +32,33 @@ public class SongView {
             System.out.println("0. Exit");
             System.out.print("Enter choice: ");
 
+            if (!scanner.hasNextInt()) {
+                System.out.println("Invalid input! Enter a number.");
+                scanner.nextLine();
+                choice = -1;
+                continue;
+            }
+
             choice = scanner.nextInt();
-            scanner.nextLine();
+            scanner.nextLine(); // Clear buffer
 
             switch (choice) {
-
-                case 1:
-                    addSong();
-                    break;
-
-                case 2:
-                    viewSongs();
-                    break;
-
-                case 3:
-                    updateSong();
-                    break;
-
-                case 4:
-                    deleteSong();
-                    break;
-
-                case 5:
-                    archiveSong();
-                    break;
-
-                case 6:
-                    restoreSong();
-                    break;
-
-                case 7:
-                    searchSong();
-                    break;
-
-                case 0:
-                    System.out.println("Exiting...");
-                    break;
-
-                default:
-                    System.out.println("Invalid choice.");
+                case 1 -> addSong();
+                case 2 -> viewSongs();
+                case 3 -> updateSong();
+                case 4 -> deleteSong();
+                case 5 -> archiveSong();
+                case 6 -> restoreSong();
+                case 7 -> searchSong();
+                case 0 -> System.out.println("Returning to Dashboard...");
+                default -> System.out.println("Invalid choice.");
             }
 
         } while (choice != 0);
     }
 
     //  ADD
-
     private void addSong() {
-
         System.out.print("Title: ");
         String title = scanner.nextLine();
 
@@ -103,13 +81,11 @@ public class SongView {
         }
     }
 
-    //  VIEW
-
-    private void viewSongs() {
-
+    //  VIEW (✅ Ginawang PUBLIC para magamit ng User Menu)
+    public void viewSongs() {
         List<Song> songs = songController.listSongs();
 
-        if (songs.isEmpty()) {
+        if (songs == null || songs.isEmpty()) {
             System.out.println("No songs found.");
             return;
         }
@@ -117,25 +93,20 @@ public class SongView {
         System.out.println("\n------------------------------------------------------------");
         System.out.printf("%-5s %-20s %-10s %-15s %-20s%n",
                 "ID", "TITLE", "LENGTH", "GENRE", "ALBUM");
-
         System.out.println("------------------------------------------------------------");
 
         for (Song song : songs) {
-
             System.out.printf("%-5d %-20s %-10s %-15s %-20s%n",
                     song.getId(),
                     song.getTitle(),
                     song.getLength(),
                     song.getGenre(),
                     song.getAlbumName());
-
         }
     }
 
     //  UPDATE
-
     private void updateSong() {
-
         System.out.print("Song ID: ");
         int id = scanner.nextInt();
         scanner.nextLine();
@@ -159,9 +130,7 @@ public class SongView {
     }
 
     //  DELETE
-
     private void deleteSong() {
-
         System.out.print("Song ID: ");
         int id = scanner.nextInt();
         scanner.nextLine();
@@ -176,9 +145,7 @@ public class SongView {
     }
 
     //  ARCHIVE
-
     private void archiveSong() {
-
         System.out.print("Song ID: ");
         int id = scanner.nextInt();
         scanner.nextLine();
@@ -192,10 +159,8 @@ public class SongView {
         }
     }
 
-    //RESTORE
-
+    // RESTORE
     private void restoreSong() {
-
         System.out.print("Song ID: ");
         int id = scanner.nextInt();
         scanner.nextLine();
@@ -209,16 +174,14 @@ public class SongView {
         }
     }
 
-    //  SEARCH
-
-    private void searchSong() {
-
+    //  SEARCH (✅ Ginawang PUBLIC para magamit ng User Menu)
+    public void searchSong() {
         System.out.print("Enter keyword: ");
         String keyword = scanner.nextLine();
 
         List<Song> songs = songController.searchSong(keyword);
 
-        if (songs.isEmpty()) {
+        if (songs == null || songs.isEmpty()) {
             System.out.println("No matching songs found.");
             return;
         }
@@ -226,18 +189,15 @@ public class SongView {
         System.out.println("\n------------------------------------------------------------");
         System.out.printf("%-5s %-20s %-10s %-15s %-20s%n",
                 "ID", "TITLE", "LENGTH", "GENRE", "ALBUM");
-
         System.out.println("------------------------------------------------------------");
 
         for (Song song : songs) {
-
             System.out.printf("%-5d %-20s %-10s %-15s %-20s%n",
                     song.getId(),
                     song.getTitle(),
                     song.getLength(),
                     song.getGenre(),
                     song.getAlbumName());
-
         }
     }
 }
