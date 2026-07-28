@@ -1,14 +1,4 @@
-
 package com.joysistvi.recordingapp.view;
-
-import com.joysistvi.recordingapp.config.DbConnection;
-import com.joysistvi.recordingapp.controller.SongController;
-import com.joysistvi.recordingapp.repository.SongRepository;
-import com.joysistvi.recordingapp.repository.SongRepositoryImpl;
-import com.joysistvi.recordingapp.service.SongService;
-import com.joysistvi.recordingapp.service.SongServiceImpl;
-
-import java.util.Scanner;
 
 import java.util.Scanner;
 
@@ -37,8 +27,10 @@ public class Dashboard {
             System.out.print("Enter choice: ");
 
             choice = scanner.nextInt();
+            scanner.nextLine(); // Consume newline
 
             switch (choice) {
+
                 case 1:
                     songView.showMenu();
                     break;
@@ -62,18 +54,3 @@ public class Dashboard {
         } while (choice != 0);
     }
 }
-
-//        song.dashboard();
-
-
-
-/*
-    why MVC is useful
-    separation of concerns -> each part has a clear responsibility
-
-    maintainability -> easier to update one part without breaking others
-
-    testability -> you can test service logic separately from UI
-
-    flexibility -> swap out the database or UI without rewriting the whole app
- */

@@ -104,4 +104,30 @@ public class ArtistServiceImpl implements ArtistService {
 
         return artistRepository.searchArtist(keyword.trim());
     }
+    @Override
+    public boolean archiveArtist(int id) {
+
+        if (id <= 0) {
+            System.out.println("Invalid Artist ID.");
+            return false;
+        }
+
+        return artistRepository.archiveArtist(id);
+    }
+
+    @Override
+    public boolean restoreArtist(int id) {
+
+        if (id <= 0) {
+            System.out.println("Invalid Artist ID.");
+            return false;
+        }
+
+        return artistRepository.restoreArtist(id);
+    }
+
+    @Override
+    public List<Artist> getArchivedArtists() {
+        return artistRepository.getArchivedArtists();
+    }
 }

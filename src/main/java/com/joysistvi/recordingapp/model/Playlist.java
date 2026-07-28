@@ -2,30 +2,61 @@ package com.joysistvi.recordingapp.model;
 
 public class Playlist {
     private int id;
-    private int date_created;
-    private int songs_id;
+    private String dateCreated;
+    private int songsId;
+    private int isArchived;
 
+    public Playlist() {
+    }
 
-    public Playlist(int id, int date_created, int songs_id) {
+    public Playlist(int id, String dateCreated, int songsId) {
         this.id = id;
-        this.date_created = date_created;
-        this.songs_id = songs_id;
+        this.dateCreated = dateCreated;
+        this.songsId = songsId;
+
     }
 
-    public int getSongs_id() {
-        return songs_id;
+
+    public Playlist(int id, String dateCreated, int songsId, int isArchived) {
+        this.id = id;
+        this. dateCreated = dateCreated;
+        this. songsId = songsId;
+        this.isArchived = isArchived;
+
     }
 
-    public void setSongs_id(int songs_id) {
-        this.songs_id = songs_id;
+    @Override
+    public String toString() {
+        return "Playlist{" +
+                "id=" + id +
+                ", dateCreated=" + dateCreated +
+                ", songsId=" + songsId +
+                ", isArchived=" + isArchived +
+                '}';
     }
 
-    public int getDate_created() {
-        return date_created;
+    public int getIsArchived() {
+        return isArchived;
     }
 
-    public void setDate_created(int date_created) {
-        this.date_created = date_created;
+    public void setIsArchived(int isArchived) {
+        this.isArchived = isArchived;
+    }
+
+    public int getSongsId() {
+        return songsId;
+    }
+
+    public void setSongsId(int songsId) {
+        this.songsId = songsId;
+    }
+
+    public String getDateCreated() {
+        return dateCreated;
+    }
+
+    public void setDateCreated(String dateCreated) {
+        this.dateCreated = dateCreated;
     }
 
     public int getId() {
@@ -36,3 +67,4 @@ public class Playlist {
         this.id = id;
     }
 }
+

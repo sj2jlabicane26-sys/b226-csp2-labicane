@@ -82,6 +82,7 @@ public class ArtistRepositoryImpl implements ArtistRepository {
                 return new Artist(
                         rs.getInt("id"),
                         rs.getString("name")
+
                 );
             }
 
@@ -155,6 +156,69 @@ public class ArtistRepositoryImpl implements ArtistRepository {
 
         } catch (SQLException e) {
             System.out.println("Error searching artist: " + e.getMessage());
+        }
+
+        return artists;
+    }
+    @Override
+    public boolean archiveArtist(int id) {
+
+        String query = "UPDATE artists SET is_archived = 1 WHERE id = ?";
+
+        try (Connection conn = dbConnection.connect();
+             PreparedStatement prep = conn.prepareStatement(query)) {
+
+            prep.setInt(1, id);
+
+            return prep.executeUpdate() > 0;
+
+        } catch (SQLException e) {
+            System.out.println("Error archiving artist: " + e.getMessage());
+            return false;
+        }
+    }
+
+    @Override
+    public boolean restoreArtist(int id) {
+
+        String query = "UPDATE artists SET is_archived = 0 WHERE id = ?";
+
+        try (Connection conn = dbConnection.connect();
+             PreparedStatement prep = conn.prepareStatement(query)) {
+
+            prep.setInt(1, id);
+
+            return prep.executeUpdate() > 0;
+
+        } catch (SQLException e) {
+            System.out.println("Error restoring artist: " + e.getMessage());
+            return false;
+        }
+    }
+
+    @Override
+    public List<Artist> getArchivedArtists() {
+
+        List<Artist> artists = new ArrayList<>();
+
+        String query = "SELECT * FROM artists WHERE is_archived = 1";
+
+        try (Connection conn = dbConnection.connect();
+             PreparedStatement prep = conn.prepareStatement(query);
+             ResultSet rs = prep.executeQuery()) {
+
+            while (rs.next()) {
+
+                Artist artist = new Artist();
+
+                artist.setId(rs.getInt("id"));
+                artist.setName(rs.getString("name"));
+
+                artists.add(artist);
+            }
+
+        } catch (SQLException e) {
+            System.out.println("Error retrieving archived artists: " + e.getMessage());
         }
 
         return artists;

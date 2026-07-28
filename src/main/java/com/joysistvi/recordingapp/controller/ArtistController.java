@@ -44,4 +44,15 @@ public class ArtistController {
     public List<Artist> searchArtist(String keyword) {
         return artistService.searchArtist(keyword);
     }
+    public boolean archiveArtist(int id) {
+        return artistService.archiveArtist(id);
+    }
+
+    public boolean restoreArtist(int id) {
+        return artistService.restoreArtist(id);
+    }
+
+    public List<Artist> getArchivedArtists() {
+        return artistService.getArchivedArtists();
+    }
 }

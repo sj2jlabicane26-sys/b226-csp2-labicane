@@ -22,4 +22,9 @@ public interface ArtistRepository {
 
     // Search
     List<Artist> searchArtist(String keyword);
+    boolean archiveArtist(int id);
+
+    boolean restoreArtist(int id);
+
+    List<Artist> getArchivedArtists();
 }

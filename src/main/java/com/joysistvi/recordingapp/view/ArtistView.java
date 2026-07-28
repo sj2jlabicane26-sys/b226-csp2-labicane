@@ -25,15 +25,18 @@ public class ArtistView {
             System.out.println("1. Add Artist");
             System.out.println("2. View All Artists");
             System.out.println("3. Update Artist");
-            System.out.println("4. Delete Artist");
+            System.out.println("4. Archive Artist");
             System.out.println("5. Search Artist");
+            System.out.println("6. View Archived Artists");
+            System.out.println("7. Restore Artist");
             System.out.println("0. Back");
             System.out.print("Enter Choice: ");
 
             choice = scanner.nextInt();
-            scanner.nextLine(); // consume newline
+            scanner.nextLine();
 
             switch (choice) {
+
                 case 1:
                     addArtist();
                     break;
@@ -47,11 +50,19 @@ public class ArtistView {
                     break;
 
                 case 4:
-                    deleteArtist();
+                    archiveArtist();
                     break;
 
                 case 5:
                     searchArtist();
+                    break;
+
+                case 6:
+                    displayArchivedArtists();
+                    break;
+
+                case 7:
+                    restoreArtist();
                     break;
 
                 case 0:
@@ -65,6 +76,7 @@ public class ArtistView {
         } while (choice != 0);
     }
 
+    // ADD ARTIST
     private void addArtist() {
 
         System.out.print("Enter Artist Name: ");
@@ -77,6 +89,7 @@ public class ArtistView {
         }
     }
 
+    // VIEW ALL ARTISTS
     private void displayArtists() {
 
         List<Artist> artists = artistController.getAllArtists();
@@ -96,6 +109,7 @@ public class ArtistView {
         }
     }
 
+    // UPDATE ARTIST
     private void updateArtist() {
 
         System.out.print("Enter Artist ID: ");
@@ -112,19 +126,21 @@ public class ArtistView {
         }
     }
 
-    private void deleteArtist() {
+    // ARCHIVE ARTIST
+    private void archiveArtist() {
 
         System.out.print("Enter Artist ID: ");
         int id = scanner.nextInt();
         scanner.nextLine();
 
-        if (artistController.deleteArtist(id)) {
-            System.out.println("Artist deleted successfully!");
+        if (artistController.archiveArtist(id)) {
+            System.out.println("Artist archived successfully!");
         } else {
-            System.out.println("Failed to delete artist.");
+            System.out.println("Failed to archive artist.");
         }
     }
 
+    // SEARCH ARTIST
     private void searchArtist() {
 
         System.out.print("Enter keyword: ");
@@ -144,6 +160,40 @@ public class ArtistView {
             System.out.printf("%-5d %-30s%n",
                     artist.getId(),
                     artist.getName());
+        }
+    }
+
+    // VIEW ARCHIVED ARTISTS
+    private void displayArchivedArtists() {
+
+        List<Artist> artists = artistController.getArchivedArtists();
+
+        if (artists.isEmpty()) {
+            System.out.println("No archived artists found.");
+            return;
+        }
+
+        System.out.println("\n===== ARCHIVED ARTISTS =====");
+        System.out.printf("%-5s %-30s%n", "ID", "NAME");
+
+        for (Artist artist : artists) {
+            System.out.printf("%-5d %-30s%n",
+                    artist.getId(),
+                    artist.getName());
+        }
+    }
+
+    // RESTORE ARTIST
+    private void restoreArtist() {
+
+        System.out.print("Enter Artist ID to Restore: ");
+        int id = scanner.nextInt();
+        scanner.nextLine();
+
+        if (artistController.restoreArtist(id)) {
+            System.out.println("Artist restored successfully!");
+        } else {
+            System.out.println("Failed to restore artist.");
         }
     }
 }
