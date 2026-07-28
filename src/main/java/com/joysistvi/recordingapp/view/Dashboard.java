@@ -8,11 +8,21 @@ public class Dashboard {
 
     private final SongView songView;
     private final ArtistView artistView;
+    private final AlbumView albumView;
+    private final UserView userView;
 
-    public Dashboard(SongView songView, ArtistView artistView) {
+    public Dashboard(SongView songView, ArtistView artistView, AlbumView albumView, UserView userView) {
         this.songView = songView;
         this.artistView = artistView;
+        this.albumView = albumView;
+        this.userView = userView;
     }
+
+//    public Dashboard(SongView songView, ArtistView artistView, AlbumView albumView) {
+//        this.songView = songView;
+//        this.artistView = artistView;
+//        this.albumView = albumView;
+//    }
 
     public void mainMenu() {
 
@@ -23,6 +33,7 @@ public class Dashboard {
             System.out.println("1. Manage Songs");
             System.out.println("2. Manage Albums");
             System.out.println("3. Manage Artists");
+            System.out.println("4. Manage Users");
             System.out.println("0. Exit");
             System.out.print("Enter choice: ");
 
@@ -36,12 +47,15 @@ public class Dashboard {
                     break;
 
                 case 2:
-                    System.out.println("Album module is under development.");
+                  albumView.showMenu();
                     break;
 
                 case 3:
                     artistView.showMenu();
                     break;
+
+                case 4:
+                    userView.showMenu();
 
                 case 0:
                     System.out.println("Exiting application...");

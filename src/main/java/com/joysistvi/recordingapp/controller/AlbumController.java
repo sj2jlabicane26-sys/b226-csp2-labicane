@@ -15,10 +15,12 @@ public class AlbumController {
     }
 
     // Create Album
-    public boolean addAlbum(String name, int year) {
+    public boolean addAlbum(String name, int year, int artistId) {
+
         Album album = new Album();
         album.setName(name);
         album.setYear(year);
+        album.setArtistId(artistId);
 
         return albumService.addAlbum(album);
     }

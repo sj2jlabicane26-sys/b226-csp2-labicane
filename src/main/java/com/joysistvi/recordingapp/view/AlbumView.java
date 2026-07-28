@@ -77,7 +77,7 @@ public class AlbumView {
         } while (choice != 0);
     }
 
-    // Add Album
+    // ================= ADD ALBUM =================
     private void addAlbum() {
 
         System.out.print("Enter Album Name: ");
@@ -85,16 +85,19 @@ public class AlbumView {
 
         System.out.print("Enter Release Year: ");
         int year = scanner.nextInt();
+
+        System.out.print("Enter Artist ID: ");
+        int artistId = scanner.nextInt();
         scanner.nextLine();
 
-        if (albumController.addAlbum(name, year)) {
+        if (albumController.addAlbum(name, year, artistId)) {
             System.out.println("Album added successfully!");
         } else {
             System.out.println("Failed to add album.");
         }
     }
 
-    // View All Albums
+    // ================= VIEW ALL ALBUMS =================
     private void displayAlbums() {
 
         List<Album> albums = albumController.getAllAlbums();
@@ -105,18 +108,20 @@ public class AlbumView {
         }
 
         System.out.println("\n===== ALBUM LIST =====");
-        System.out.printf("%-5s %-30s %-10s%n", "ID", "NAME", "YEAR");
+        System.out.printf("%-5s %-25s %-10s %-10s%n",
+                "ID", "NAME", "YEAR", "ARTIST");
 
         for (Album album : albums) {
 
-            System.out.printf("%-5d %-30s %-10d%n",
+            System.out.printf("%-5d %-25s %-10d %-10d%n",
                     album.getId(),
                     album.getName(),
-                    album.getYear());
+                    album.getYear(),
+                    album.getArtistId());
         }
     }
 
-    // Update Album
+    // ================= UPDATE ALBUM =================
     private void updateAlbum() {
 
         System.out.print("Enter Album ID: ");
@@ -137,7 +142,7 @@ public class AlbumView {
         }
     }
 
-    // Archive Album
+    // ================= ARCHIVE ALBUM =================
     private void archiveAlbum() {
 
         System.out.print("Enter Album ID: ");
@@ -151,7 +156,7 @@ public class AlbumView {
         }
     }
 
-    // Search Album
+    // ================= SEARCH ALBUM =================
     private void searchAlbum() {
 
         System.out.print("Enter keyword: ");
@@ -165,18 +170,20 @@ public class AlbumView {
         }
 
         System.out.println("\n===== SEARCH RESULT =====");
-        System.out.printf("%-5s %-30s %-10s%n", "ID", "NAME", "YEAR");
+        System.out.printf("%-5s %-25s %-10s %-10s%n",
+                "ID", "NAME", "YEAR", "ARTIST");
 
         for (Album album : albums) {
 
-            System.out.printf("%-5d %-30s %-10d%n",
+            System.out.printf("%-5d %-25s %-10d %-10d%n",
                     album.getId(),
                     album.getName(),
-                    album.getYear());
+                    album.getYear(),
+                    album.getArtistId());
         }
     }
 
-    // View Archived Albums
+    // ================= VIEW ARCHIVED ALBUMS =================
     private void displayArchivedAlbums() {
 
         List<Album> albums = albumController.getArchivedAlbums();
@@ -187,18 +194,20 @@ public class AlbumView {
         }
 
         System.out.println("\n===== ARCHIVED ALBUMS =====");
-        System.out.printf("%-5s %-30s %-10s%n", "ID", "NAME", "YEAR");
+        System.out.printf("%-5s %-25s %-10s %-10s%n",
+                "ID", "NAME", "YEAR", "ARTIST");
 
         for (Album album : albums) {
 
-            System.out.printf("%-5d %-30s %-10d%n",
+            System.out.printf("%-5d %-25s %-10d %-10d%n",
                     album.getId(),
                     album.getName(),
-                    album.getYear());
+                    album.getYear(),
+                    album.getArtistId());
         }
     }
 
-    // Restore Album
+    // ================= RESTORE ALBUM =================
     private void restoreAlbum() {
 
         System.out.print("Enter Album ID to Restore: ");

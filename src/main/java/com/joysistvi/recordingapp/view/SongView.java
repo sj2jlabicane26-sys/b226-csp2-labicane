@@ -77,7 +77,7 @@ public class SongView {
         } while (choice != 0);
     }
 
-    // ================= ADD =================
+    //  ADD
 
     private void addSong() {
 
@@ -103,7 +103,7 @@ public class SongView {
         }
     }
 
-    // ================= VIEW =================
+    //  VIEW
 
     private void viewSongs() {
 
@@ -132,7 +132,7 @@ public class SongView {
         }
     }
 
-    // ================= UPDATE =================
+    //  UPDATE
 
     private void updateSong() {
 
@@ -158,7 +158,7 @@ public class SongView {
         }
     }
 
-    // ================= DELETE =================
+    //  DELETE
 
     private void deleteSong() {
 
@@ -175,7 +175,7 @@ public class SongView {
         }
     }
 
-    // ================= ARCHIVE =================
+    //  ARCHIVE
 
     private void archiveSong() {
 
@@ -192,7 +192,7 @@ public class SongView {
         }
     }
 
-    // ================= RESTORE =================
+    //RESTORE
 
     private void restoreSong() {
 
@@ -209,7 +209,7 @@ public class SongView {
         }
     }
 
-    // ================= SEARCH =================
+    //  SEARCH
 
     private void searchSong() {
 

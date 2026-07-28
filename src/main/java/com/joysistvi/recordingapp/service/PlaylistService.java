@@ -1,10 +1,10 @@
-package com.joysistvi.recordingapp.repository;
+package com.joysistvi.recordingapp.service;
 
 import com.joysistvi.recordingapp.model.Playlist;
 
 import java.util.List;
 
-public interface PlaylistRepository {
+public interface PlaylistService {
 
     boolean createPlaylist(Playlist playlist);
 

@@ -4,11 +4,35 @@ public class User {
    private int id;
     private String username;
     private String password;
+    private int playlist_id;
 
-    public User(int id, String username, String password) {
+    public User(int id, String username, String password, int playlist_id) {
         this.id = id;
         this.username = username;
         this.password = password;
+        this. playlist_id = playlist_id;
+    }
+
+    public User() {
+
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", playlist_id=" + playlist_id +
+                '}';
+    }
+
+    public int getPlaylist_id() {
+        return playlist_id;
+    }
+
+    public void setPlaylist_id(int playlist_id) {
+        this.playlist_id = playlist_id;
     }
 
     public String getPassword() {

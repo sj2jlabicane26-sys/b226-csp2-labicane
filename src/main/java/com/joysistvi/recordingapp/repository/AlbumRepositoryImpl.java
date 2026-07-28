@@ -22,13 +22,14 @@ public class AlbumRepositoryImpl implements AlbumRepository {
             return false;
         }
 
-        String query = "INSERT INTO albums(name, year) VALUES(?, ?)";
+        String query = "INSERT INTO albums(name, year, artist_id) VALUES(?, ?, ?)";
 
         try (Connection conn = dbConnection.connect();
              PreparedStatement prep = conn.prepareStatement(query)) {
 
             prep.setString(1, album.getName());
             prep.setInt(2, album.getYear());
+            prep.setInt(3, album.getArtistId());
 
             return prep.executeUpdate() > 0;
 
@@ -55,6 +56,7 @@ public class AlbumRepositoryImpl implements AlbumRepository {
                         rs.getInt("id"),
                         rs.getString("name"),
                         rs.getInt("year"),
+                        rs.getInt("artist_id"),
                         rs.getInt("is_archived")
                 );
 
@@ -81,10 +83,12 @@ public class AlbumRepositoryImpl implements AlbumRepository {
             ResultSet rs = prep.executeQuery();
 
             if (rs.next()) {
+
                 return new Album(
                         rs.getInt("id"),
                         rs.getString("name"),
                         rs.getInt("year"),
+                        rs.getInt("artist_id"),
                         rs.getInt("is_archived")
                 );
             }
@@ -154,6 +158,7 @@ public class AlbumRepositoryImpl implements AlbumRepository {
                         rs.getInt("id"),
                         rs.getString("name"),
                         rs.getInt("year"),
+                        rs.getInt("artist_id"),
                         rs.getInt("is_archived")
                 ));
             }
@@ -218,6 +223,7 @@ public class AlbumRepositoryImpl implements AlbumRepository {
                         rs.getInt("id"),
                         rs.getString("name"),
                         rs.getInt("year"),
+                        rs.getInt("artist_id"),
                         rs.getInt("is_archived")
                 ));
             }

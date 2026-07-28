@@ -1,18 +1,10 @@
 package com.joysistvi.recordingapp.dao;
+
 import com.joysistvi.recordingapp.config.DbConnection;
-import com.joysistvi.recordingapp.controller.ArtistController;
-import com.joysistvi.recordingapp.controller.SongController;
-import com.joysistvi.recordingapp.repository.ArtistRepository;
-import com.joysistvi.recordingapp.repository.ArtistRepositoryImpl;
-import com.joysistvi.recordingapp.repository.SongRepository;
-import com.joysistvi.recordingapp.repository.SongRepositoryImpl;
-import com.joysistvi.recordingapp.service.ArtistService;
-import com.joysistvi.recordingapp.service.ArtistServiceImpl;
-import com.joysistvi.recordingapp.service.SongService;
-import com.joysistvi.recordingapp.service.SongServiceImpl;
-import com.joysistvi.recordingapp.view.ArtistView;
-import com.joysistvi.recordingapp.view.Dashboard;
-import com.joysistvi.recordingapp.view.SongView;
+import com.joysistvi.recordingapp.controller.*;
+import com.joysistvi.recordingapp.repository.*;
+import com.joysistvi.recordingapp.service.*;
+import com.joysistvi.recordingapp.view.*;
 
 public class Main {
 
@@ -21,21 +13,43 @@ public class Main {
         // Database Connection
         DbConnection dbConnection = new DbConnection();
 
-        // ================= SONG =================
+        //  SONG
         SongRepository songRepository = new SongRepositoryImpl(dbConnection);
         SongService songService = new SongServiceImpl(songRepository);
         SongController songController = new SongController(songService);
         SongView songView = new SongView(songController);
 
-        // ================= ARTIST =================
+        //  ARTIST
         ArtistRepository artistRepository = new ArtistRepositoryImpl(dbConnection);
         ArtistService artistService = new ArtistServiceImpl(artistRepository);
         ArtistController artistController = new ArtistController(artistService);
         ArtistView artistView = new ArtistView(artistController);
 
-        // ================= DASHBOARD =================
-        Dashboard dashboard = new Dashboard(songView,artistView);
+        // ALBUM
+        AlbumRepository albumRepository = new AlbumRepositoryImpl(dbConnection);
+        AlbumService albumService = new AlbumServiceImpl(albumRepository);
+        AlbumController albumController = new AlbumController(albumService);
+        AlbumView albumView = new AlbumView(albumController);
+
+
+        //  PLAYLIST
+        PlaylistRepository playlistRepository = new PlaylistRepositoryImpl(dbConnection);
+        PlaylistService playlistService = new PlaylistServiceImpl(playlistRepository);
+        PlaylistController playlistController = new PlaylistController(playlistService);
+        PlaylistView playlistView = new PlaylistView(playlistController);
+
+        //  USER
+
+        UserRepository userRepository = new UserRepositoryImpl(dbConnection);
+
+        UserService userService = new UserServiceImpl(userRepository);
+
+        UserController userController = new UserController(userService);
+
+        UserView userView = new UserView(userController);
+
+        //  DASHBOARD
+        Dashboard dashboard = new Dashboard(songView, artistView,albumView, userView);
         dashboard.mainMenu();
     }
 }
-//test 27

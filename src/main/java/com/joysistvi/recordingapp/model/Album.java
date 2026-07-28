@@ -5,6 +5,7 @@ public class Album {
     private int id;
     private String name;
     private int year;
+    private int artistId;
     private int isArchived;
 
     public Album() {
@@ -17,10 +18,11 @@ public class Album {
     }
 
     // Constructor for retrieving from database
-    public Album(int id, String name, int year, int isArchived) {
+    public Album(int id, String name, int year, int artistId, int isArchived) {
         this.id = id;
         this.name = name;
         this.year = year;
+        this.artistId = artistId;
         this.isArchived = isArchived;
     }
 
@@ -30,8 +32,17 @@ public class Album {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", year=" + year +
+                ", artistId=" + artistId +
                 ", isArchived=" + isArchived +
                 '}';
+    }
+
+    public int getArtistId() {
+        return artistId;
+    }
+
+    public void setArtistId(int artistId) {
+        this.artistId = artistId;
     }
 
     public int getId() {
