@@ -77,13 +77,13 @@ public class PlaylistView {
         } while (choice != 0);
     }
 
-    // ================= CREATE =================
+    //  CREATE
 
     private void createPlaylist() {
 
         Playlist playlist = new Playlist();
 
-        System.out.print("Date Created (yyyy-MM-dd HH:mm:ss): ");
+        System.out.print("Date Created (yyyy-MM-dd): ");
         playlist.setDateCreated(scanner.nextLine());
 
         System.out.print("Song ID: ");
@@ -97,7 +97,7 @@ public class PlaylistView {
         }
     }
 
-    // ================= VIEW =================
+    //  VIEW
 
     private void viewAllPlaylists() {
 
@@ -121,7 +121,7 @@ public class PlaylistView {
         }
     }
 
-    // ================= UPDATE =================
+    // UPDATE
 
     private void updatePlaylist() {
 
@@ -145,7 +145,7 @@ public class PlaylistView {
         }
     }
 
-    // ================= ARCHIVE =================
+    // ARCHIVE
 
     private void archivePlaylist() {
 
@@ -160,7 +160,7 @@ public class PlaylistView {
         }
     }
 
-    // ================= RESTORE =================
+    //  RESTORE
 
     private void restorePlaylist() {
 
@@ -175,7 +175,7 @@ public class PlaylistView {
         }
     }
 
-    // ================= DELETE =================
+    //  DELETE
 
     private void deletePlaylist() {
 
@@ -190,7 +190,7 @@ public class PlaylistView {
         }
     }
 
-    // ================= VIEW ARCHIVED =================
+    //  VIEW ARCHIVED
 
     private void viewArchivedPlaylists() {
 
