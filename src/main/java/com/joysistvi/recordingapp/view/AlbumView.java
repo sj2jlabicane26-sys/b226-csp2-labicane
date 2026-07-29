@@ -15,6 +15,9 @@ public class AlbumView {
         this.albumController = albumController;
         this.scanner = new Scanner(System.in);
     }
+    public void viewAlbums() {
+        displayAlbums();
+    }
 
     public void showMenu() {
 

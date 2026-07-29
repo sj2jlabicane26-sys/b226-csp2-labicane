@@ -15,6 +15,7 @@ public class ArtistView {
         this.artistController = artistController;
         this.scanner = new Scanner(System.in);
     }
+    public void viewArtist(){displayArtists();}
 
     public void showMenu() {
 

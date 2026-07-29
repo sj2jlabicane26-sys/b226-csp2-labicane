@@ -18,9 +18,11 @@ public class PlaylistView {
 
     public void start() {
 
-        while (true) {
+        int choice;
 
-            System.out.println("\n===== PLAYLIST MENU =====");
+        do {
+
+            System.out.println("\n========== PLAYLIST MENU ==========");
             System.out.println("1. Create Playlist");
             System.out.println("2. View All Playlists");
             System.out.println("3. Update Playlist");
@@ -28,10 +30,10 @@ public class PlaylistView {
             System.out.println("5. Restore Playlist");
             System.out.println("6. Delete Playlist");
             System.out.println("7. View Archived Playlists");
-            System.out.println("0. Exit");
+            System.out.println("0. Back");
+            System.out.print("Enter Choice: ");
 
-            System.out.print("Choose: ");
-            int choice = scanner.nextInt();
+            choice = scanner.nextInt();
             scanner.nextLine();
 
             switch (choice) {
@@ -65,77 +67,85 @@ public class PlaylistView {
                     break;
 
                 case 0:
-                    System.out.println("Thank you!");
-                    return;
+                    System.out.println("Returning to User Dashboard...");
+                    break;
 
                 default:
                     System.out.println("Invalid Choice!");
             }
-        }
+
+        } while (choice != 0);
     }
+
+    // ================= CREATE =================
 
     private void createPlaylist() {
 
-        System.out.print("Date Created: ");
-        String dateCreated = scanner.nextLine();
+        Playlist playlist = new Playlist();
+
+        System.out.print("Date Created (yyyy-MM-dd HH:mm:ss): ");
+        playlist.setDateCreated(scanner.nextLine());
 
         System.out.print("Song ID: ");
-        int songId = scanner.nextInt();
+        playlist.setSongsId(scanner.nextInt());
         scanner.nextLine();
 
-        Playlist playlist = new Playlist();
-        playlist.setDateCreated(dateCreated);
-        playlist.setSongsId(songId);
-
         if (playlistController.createPlaylist(playlist)) {
-            System.out.println("Playlist Added Successfully!");
+            System.out.println("Playlist Created Successfully!");
         } else {
-            System.out.println("Failed to Add Playlist!");
+            System.out.println("Failed to Create Playlist!");
         }
     }
+
+    // ================= VIEW =================
 
     private void viewAllPlaylists() {
 
         List<Playlist> playlists = playlistController.getAllPlaylists();
 
         if (playlists.isEmpty()) {
-            System.out.println("No playlists found.");
+            System.out.println("No Playlists Found.");
             return;
         }
 
+        System.out.println("\n========== PLAYLIST LIST ==========");
+        System.out.printf("%-5s %-25s %-10s%n",
+                "ID", "DATE CREATED", "SONG ID");
+
         for (Playlist playlist : playlists) {
 
-            System.out.println("----------------------------");
-            System.out.println("ID: " + playlist.getId());
-            System.out.println("Date Created: " + playlist.getDateCreated());
-            System.out.println("Song ID: " + playlist.getSongsId());
+            System.out.printf("%-5d %-25s %-10d%n",
+                    playlist.getId(),
+                    playlist.getDateCreated(),
+                    playlist.getSongsId());
         }
     }
 
+    // ================= UPDATE =================
+
     private void updatePlaylist() {
 
+        Playlist playlist = new Playlist();
+
         System.out.print("Playlist ID: ");
-        int id = scanner.nextInt();
+        playlist.setId(scanner.nextInt());
         scanner.nextLine();
 
-        System.out.print("New Date Created: ");
-        String date = scanner.nextLine();
+        System.out.print("New Date Created (yyyy-MM-dd HH:mm:ss): ");
+        playlist.setDateCreated(scanner.nextLine());
 
         System.out.print("New Song ID: ");
-        int songId = scanner.nextInt();
+        playlist.setSongsId(scanner.nextInt());
         scanner.nextLine();
-
-        Playlist playlist = new Playlist();
-        playlist.setId(id);
-        playlist.setDateCreated(date);
-        playlist.setSongsId(songId);
 
         if (playlistController.updatePlaylist(playlist)) {
             System.out.println("Playlist Updated Successfully!");
         } else {
-            System.out.println("Update Failed!");
+            System.out.println("Failed to Update Playlist!");
         }
     }
+
+    // ================= ARCHIVE =================
 
     private void archivePlaylist() {
 
@@ -146,9 +156,11 @@ public class PlaylistView {
         if (playlistController.archivePlaylist(id)) {
             System.out.println("Playlist Archived Successfully!");
         } else {
-            System.out.println("Archive Failed!");
+            System.out.println("Failed to Archive Playlist!");
         }
     }
+
+    // ================= RESTORE =================
 
     private void restorePlaylist() {
 
@@ -159,9 +171,11 @@ public class PlaylistView {
         if (playlistController.restorePlaylist(id)) {
             System.out.println("Playlist Restored Successfully!");
         } else {
-            System.out.println("Restore Failed!");
+            System.out.println("Failed to Restore Playlist!");
         }
     }
+
+    // ================= DELETE =================
 
     private void deletePlaylist() {
 
@@ -172,25 +186,31 @@ public class PlaylistView {
         if (playlistController.deletePlaylist(id)) {
             System.out.println("Playlist Deleted Successfully!");
         } else {
-            System.out.println("Delete Failed!");
+            System.out.println("Failed to Delete Playlist!");
         }
     }
+
+    // ================= VIEW ARCHIVED =================
 
     private void viewArchivedPlaylists() {
 
         List<Playlist> playlists = playlistController.getArchivedPlaylists();
 
         if (playlists.isEmpty()) {
-            System.out.println("No Archived Playlists.");
+            System.out.println("No Archived Playlists Found.");
             return;
         }
 
+        System.out.println("\n====== ARCHIVED PLAYLISTS ======");
+        System.out.printf("%-5s %-25s %-10s%n",
+                "ID", "DATE CREATED", "SONG ID");
+
         for (Playlist playlist : playlists) {
 
-            System.out.println("----------------------------");
-            System.out.println("ID: " + playlist.getId());
-            System.out.println("Date Created: " + playlist.getDateCreated());
-            System.out.println("Song ID: " + playlist.getSongsId());
+            System.out.printf("%-5d %-25s %-10d%n",
+                    playlist.getId(),
+                    playlist.getDateCreated(),
+                    playlist.getSongsId());
         }
     }
 }

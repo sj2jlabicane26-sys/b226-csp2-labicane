@@ -14,7 +14,7 @@ public class UserController {
     }
 
 
-    // ================= REGISTER USER =================
+    // REGISTER USER
     public boolean registerUser(String username, String password, int playlistId) {
 
         User user = new User();
@@ -28,7 +28,7 @@ public class UserController {
 
 
 
-    // ================= LOGIN USER =================
+    //  LOGIN USER
     public boolean loginUser(String username, String password) {
 
         return userService.loginUser(username, password);
@@ -36,7 +36,7 @@ public class UserController {
 
 
 
-    // ================= GET USER BY USERNAME =================
+    //  GET USER BY USERNAME
     public User getUserByUsername(String username) {
 
         return userService.getUserByUsername(username);
@@ -44,7 +44,7 @@ public class UserController {
 
 
 
-    // ================= DELETE USER =================
+    //  DELETE USER
     public boolean deleteUser(int id) {
 
         return userService.deleteUser(id);

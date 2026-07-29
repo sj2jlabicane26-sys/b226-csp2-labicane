@@ -15,7 +15,7 @@ public class UserView {
         this.scanner = new Scanner(System.in);
     }
 
-    // ================= USER MANAGEMENT MENU =================
+    // SER MANAGEMENT MENU
     public void showMenu() {
         int choice;
 
@@ -57,7 +57,7 @@ public class UserView {
         } while (choice != 0);
     }
 
-    // ================= REGISTER USER =================
+    //  REGISTER USER
     public void registerUser() {
 
         System.out.println("\n========== REGISTER USER ==========");
@@ -85,7 +85,7 @@ public class UserView {
         }
     }
 
-    // ================= LOGIN USER =================
+    //  LOGIN USER
     public void loginUser() {
 
         System.out.println("\n========== USER LOGIN ==========");
@@ -105,7 +105,7 @@ public class UserView {
         }
     }
 
-    // ================= SEARCH USER =================
+    // SEARCH USER
     public void getUserByUsername() {
 
         System.out.println("\n========== SEARCH USER ==========");
@@ -129,7 +129,7 @@ public class UserView {
         }
     }
 
-    // ================= DELETE USER =================
+    //  DELETE USER
     public void deleteUser() {
 
         System.out.println("\n========== DELETE USER ==========");

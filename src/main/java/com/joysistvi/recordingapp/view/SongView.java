@@ -10,8 +10,8 @@ public class SongView {
 
     private final SongController songController;
     private final Scanner scanner;
+    // Scanner from main
 
-    // Mas maganda kung gagamitin din ang Scanner na galing sa Main
     public SongView(SongController songController) {
         this.songController = songController;
         this.scanner = new Scanner(System.in);
@@ -58,7 +58,7 @@ public class SongView {
     }
 
     //  ADD
-    private void addSong() {
+    public void addSong() {
         System.out.print("Title: ");
         String title = scanner.nextLine();
 
@@ -106,7 +106,7 @@ public class SongView {
     }
 
     //  UPDATE
-    private void updateSong() {
+    public void updateSong() {
         System.out.print("Song ID: ");
         int id = scanner.nextInt();
         scanner.nextLine();
@@ -130,7 +130,7 @@ public class SongView {
     }
 
     //  DELETE
-    private void deleteSong() {
+    public void deleteSong() {
         System.out.print("Song ID: ");
         int id = scanner.nextInt();
         scanner.nextLine();
@@ -145,7 +145,7 @@ public class SongView {
     }
 
     //  ARCHIVE
-    private void archiveSong() {
+    public void archiveSong() {
         System.out.print("Song ID: ");
         int id = scanner.nextInt();
         scanner.nextLine();
@@ -160,7 +160,7 @@ public class SongView {
     }
 
     // RESTORE
-    private void restoreSong() {
+    public void restoreSong() {
         System.out.print("Song ID: ");
         int id = scanner.nextInt();
         scanner.nextLine();

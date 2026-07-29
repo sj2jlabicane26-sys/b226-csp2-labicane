@@ -1,294 +1,243 @@
 package com.joysistvi.recordingapp.view;
 
-import com.joysistvi.recordingapp.controller.UserController;
-
 import java.util.Scanner;
-
 
 public class WelcomeView {
 
+    private final Scanner scanner = new Scanner(System.in);
 
-    private final UserController userController;
+    private final AdminView adminView;
+    private final UserView userView;
     private final AdminDashboard adminDashboard;
     private final UserDashboard userDashboard;
 
-    private final Scanner scanner = new Scanner(System.in);
+    public WelcomeView(AdminView adminView,
+                       UserView userView,
+                       AdminDashboard adminDashboard,
+                       UserDashboard userDashboard) {
 
-
-
-    public WelcomeView(
-            UserController userController,
-            AdminDashboard adminDashboard,
-            UserDashboard userDashboard) {
-
-        this.userController = userController;
+        this.adminView = adminView;
+        this.userView = userView;
         this.adminDashboard = adminDashboard;
         this.userDashboard = userDashboard;
-
     }
 
+    public void showMenu() {
+
+        boolean running = true;
 
 
-    // ==========================
-    // MAIN MENU
-    // ==========================
 
-    public boolean showMenu() {
+        while(running){
 
-
-        int choice;
-
-
-        do {
 
 
             System.out.println("\n=================================");
-            System.out.println("     RECORDING STUDIO APP");
+            System.out.println("     RECORDING STUDIO SYSTEM");
             System.out.println("=================================");
-            System.out.println("1. Admin Login");
-            System.out.println("2. User Login");
-            System.out.println("3. Register User");
+
+
+            System.out.println("1. Create Admin Account");
+            System.out.println("2. Admin Login");
+
+            System.out.println("3. Create User Account");
+            System.out.println("4. User Login");
+
             System.out.println("0. Exit");
+
+
+
             System.out.print("Enter Choice: ");
 
 
-            choice = scanner.nextInt();
+
+            int choice = scanner.nextInt();
             scanner.nextLine();
 
 
 
-            switch(choice) {
+
+            switch(choice){
+
+
+
+
+                // CREATE ADMIN
+
 
 
                 case 1:
 
-                    adminLogin();
+
+                    /*
+                      Database Flow:
+
+                      AdminView
+                          |
+                      AdminController
+                          |
+                      AdminService
+                          |
+                      AdminRepository
+                          |
+                      INSERT INTO admins
+
+                    */
+
+
+                    adminView.createAdmin();
+
 
                     break;
+
+
+
+
+
+
+
+                // ADMIN LOGIN
 
 
 
                 case 2:
 
-                    userLogin();
+
+
+                    if(adminView.login()){
+
+
+                        System.out.println(
+                                "Admin Login Successful!"
+                        );
+
+
+                        adminDashboard.mainMenu();
+
+
+                    }
+                    else{
+
+
+                        System.out.println(
+                                "Invalid Admin Account!"
+                        );
+
+
+                    }
+
 
                     break;
+
+
+
+
+
+
+
+
+                // CREATE USER
 
 
 
                 case 3:
 
-                    registerUser();
+
+
+                    /*
+                      Database Flow:
+
+                      UserView
+                          |
+                      UserController
+                          |
+                      UserService
+                          |
+                      UserRepository
+                          |
+                      INSERT INTO users
+
+                    */
+
+
+                    userView.registerUser();
+
 
                     break;
 
 
 
+
+
+
+
+
+                // USER LOGIN
+
+
+
+                case 4:
+
+
+
+                    userView.loginUser();
+
+
+                    userDashboard.showMenu();
+
+
+                    break;
+
+
+
+
+
+
+
+
+
+                // EXIT
+
+
+
                 case 0:
 
+
+
                     System.out.println(
-                            "Closing Recording Studio App..."
+                            "Thank you for using Recording Studio System!"
                     );
 
-                    return false;
+
+                    running = false;
+
+
+                    break;
+
+
+
 
 
 
                 default:
 
+
                     System.out.println(
                             "Invalid Choice!"
                     );
 
+
+
             }
 
 
-        } while(choice != 0);
-
-
-
-        return false;
-
-    }
-
-
-
-
-
-    // ==========================
-    // ADMIN LOGIN
-    // ==========================
-
-    private void adminLogin() {
-
-
-        System.out.println("\n========== ADMIN LOGIN ==========");
-
-
-        System.out.print("Username: ");
-        String username = scanner.nextLine();
-
-
-        System.out.print("Password: ");
-        String password = scanner.nextLine();
-
-
-
-        /*
-          Temporary Admin Login
-
-          Pwede mo palitan kapag
-          naka-connect na ang Admin table
-        */
-
-        if(username.equals("admin")
-                && password.equals("admin123")) {
-
-
-            System.out.println(
-                    "\nAdmin Login Successful!"
-            );
-
-
-            adminDashboard.mainMenu();
-
-
-
-        } else {
-
-
-            System.out.println(
-                    "Invalid Admin Account!"
-            );
-
 
         }
 
-    }
 
 
-
-
-
-    // ==========================
-    // USER LOGIN
-    // ==========================
-
-    private void userLogin() {
-
-
-        System.out.println("\n========== USER LOGIN ==========");
-
-
-        System.out.print("Username: ");
-        String username = scanner.nextLine();
-
-
-
-        System.out.print("Password: ");
-        String password = scanner.nextLine();
-
-
-
-
-        boolean login =
-                userController.loginUser(
-                        username,
-                        password
-                );
-
-
-
-
-        if(login) {
-
-
-            System.out.println(
-                    "\nUser Login Successful!"
-            );
-
-
-            // PUNTA SA USER DASHBOARD
-
-            userDashboard.showMenu();
-
-
-
-        } else {
-
-
-            System.out.println(
-                    "Invalid Username or Password!"
-            );
-
-
-        }
+        scanner.close();
 
 
     }
-
-
-
-
-
-    // ==========================
-    // REGISTER USER
-    // ==========================
-
-    private void registerUser() {
-
-
-        System.out.println("\n========== USER REGISTRATION ==========");
-
-
-
-        System.out.print("Username: ");
-        String username = scanner.nextLine();
-
-
-
-        System.out.print("Password: ");
-        String password = scanner.nextLine();
-
-
-
-        System.out.print("Playlist ID: ");
-        int playlistId = scanner.nextInt();
-        scanner.nextLine();
-
-
-
-
-        boolean result =
-                userController.registerUser(
-                        username,
-                        password,
-                        playlistId
-                );
-
-
-
-
-        if(result) {
-
-
-            System.out.println(
-                    "Registration Successful!"
-            );
-
-
-        } else {
-
-
-            System.out.println(
-                    "Registration Failed!"
-            );
-
-
-        }
-
-
-    }
-
-
 }
